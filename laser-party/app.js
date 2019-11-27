@@ -1,9 +1,9 @@
 const line = (r) => {
   const rd = Math.random()
   const decide1 = rd < 0.50
-  const decide2 = rd > 0.50
+  const decide2 = rd >= 0.50
   const decide3 = Math.random() > 0.98
-  const c = document.getElementById("cnv")
+  const c = document.getElementById('cnv')
   const ctx = c.getContext("2d")
   ctx.beginPath()
   ctx.moveTo( 1000 * Math.random() * Math.PI, 0)
@@ -16,7 +16,7 @@ const line = (r) => {
   gradient.addColorStop('1.0', '#990099')
   ctx.strokeStyle = gradient
   ctx.stroke()
-  if ( decide3 ){
+  if (decide3){
     ctx.clearRect(0, 0, c.width, c.height)
     ctx.restore()
   }
