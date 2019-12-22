@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Baris Manco - Mix 2023 & 2025 tunes</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2/webcomponents-bundle.js"></script>
+	<script src="node_modules/tone/build/Tone.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
+	<script src="js/ui.js"></script>
+</head>
+<body>	
+		
+		<tone-loader></tone-loader>
+
+		<tone-content>
+			<tone-play-toggle></tone-play-toggle>
+			<div id="tracks">
+				<tone-channel label="Bass" id="bass"></tone-channel>
+				<tone-channel label="Baris Manco - 2023" id="baris_manco_2023"></tone-channel>
+				<tone-channel label="Baris Manco - 2025" id="baris_manco_2025"></tone-channel>
+			</div>
+		</tone-content>
+
+	<script type="text/javascript">
+		function makeChannel(name, start, volume){
+			var channel = new Tone.Channel({ volume }).toMaster();
+			var player = new Tone.Player({
+				url : `./audio/loop/cut/${name}.[mp3|ogg]`,
+				loop : true
+			}).sync().start(start);
+			player.chain(channel);
+
+			//bind the UI
+			document.querySelector(`#${name}`).bind(channel);
+		}
+
+		makeChannel("bass",10, -7);
+		makeChannel("baris_manco_2023", 0, 0);
+		makeChannel("baris_manco_2025", 5, 0);
+
+		document.querySelector("tone-play-toggle").bind(Tone.Transport);
+	</script>
+</body>
+</html>
+
