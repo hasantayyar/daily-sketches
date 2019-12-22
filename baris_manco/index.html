@@ -16,14 +16,17 @@
 
 		<tone-content>
 			<tone-play-toggle></tone-play-toggle>
-			<div id="tracks">
+			<div id="tracks" style="width:100vw">
 				<tone-channel label="Bass" id="bass"></tone-channel>
 				<tone-channel label="Baris Manco - 2023" id="baris_manco_2023"></tone-channel>
 				<tone-channel label="Baris Manco - 2025" id="baris_manco_2025"></tone-channel>
+				<tone-channel label="Baris Manco - 2024" id="baris_manco_2024"></tone-channel>
+
 			</div>
 		</tone-content>
 
 	<script type="text/javascript">
+		var channels = []
 		function makeChannel(name, start, volume){
 			var channel = new Tone.Channel({ volume }).toMaster();
 			var player = new Tone.Player({
@@ -31,14 +34,16 @@
 				loop : true
 			}).sync().start(start);
 			player.chain(channel);
-
+			channels.push(channel)
 			//bind the UI
 			document.querySelector(`#${name}`).bind(channel);
 		}
 
-		makeChannel("bass",10, -7);
+		makeChannel("bass", 10, -4);
 		makeChannel("baris_manco_2023", 0, 0);
-		makeChannel("baris_manco_2025", 5, 0);
+		makeChannel("baris_manco_2025", 5, -1);
+		makeChannel("baris_manco_2024", 0, -100);
+
 
 		document.querySelector("tone-play-toggle").bind(Tone.Transport);
 	</script>
